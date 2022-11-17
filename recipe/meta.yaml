@@ -6,11 +6,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/koesterlab/datavzrd/archive/refs/tags/v{{ version }}.tar.gz
+  url: https://github.com/datavzrd/datavzrd/archive/refs/tags/v{{ version }}.tar.gz
   sha256: 30ff83594f7d9efe207d225ae6f79dc9187f14cc71ca081e1f7dfde9315701f6
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -23,7 +23,7 @@ test:
     - datavzrd --help
 
 about:
-  home: https://github.com/koesterlab/datavzrd
+  home: https://github.com/datavzrd/datavzrd
   license: MIT
   license_family: MIT
   license_file: LICENSE
@@ -36,8 +36,8 @@ about:
     per column. Plots can be fully customized by users via a config file. 
     These also allow the user to add linkouts to other websites or link 
     between multiple tables.
-  doc_url: https://github.com/koesterlab/datavzrd
-  dev_url: https://github.com/koesterlab/datavzrd
+  doc_url: https://github.com/datavzrd/datavzrd
+  dev_url: https://github.com/datavzrd/datavzrd
 
 extra:
   recipe-maintainers:
