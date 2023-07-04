@@ -17,6 +17,7 @@ requirements:
   build:
     - {{ compiler('rust') }}
     - {{ compiler('c') }}
+    - nodejs
 
 test:
   commands:
