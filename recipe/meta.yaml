@@ -10,9 +10,8 @@ source:
   sha256: 1d5d021ffafc7328116787fafd09edcf777787e4a513cd0ce76976d8d3962f9f
 
 build:
-  number: 0
-  # TODO osx-arm64 builds fail (https://github.com/conda-forge/datavzrd-feedstock/pull/153), reenable them once fixed
-  skip: true  # [(osx and arm64) or win or py<310]
+  number: 1
+  skip: true  # [win or py<310]
 
 requirements:
   build:
