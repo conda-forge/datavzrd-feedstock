@@ -1,0 +1,106 @@
+From bddf1f90c7fb0d86b83f72139e1d2ed8f859ba03 Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwelk@xhochy.com>
+Date: Wed, 2 Apr 2025 21:14:43 +0200
+Subject: [PATCH] Apply upstream cross-compilation patch
+
+---
+ ...workaround-for-detecting-shared-buil.patch | 15 ++++++
+ ...ply-upstream-cross-compilation-patch.patch | 49 +++++++++++++++++++
+ Cargo.toml                                    |  9 ++++
+ 3 files changed, 73 insertions(+)
+ create mode 100644 0001-Apply-the-conda-workaround-for-detecting-shared-buil.patch
+ create mode 100644 0001-Apply-upstream-cross-compilation-patch.patch
+
+diff --git a/0001-Apply-the-conda-workaround-for-detecting-shared-buil.patch b/0001-Apply-the-conda-workaround-for-detecting-shared-buil.patch
+new file mode 100644
+index 0000000..afa8384
+--- /dev/null
++++ b/0001-Apply-the-conda-workaround-for-detecting-shared-buil.patch
+@@ -0,0 +1,15 @@
++diff --git a/pyo3-build-config/src/impl_.rs b/pyo3-build-config/src/impl_.rs
++index f36c5e50..f3566ae0 100644
++--- a/src/impl_.rs
+++++ b/src/impl_.rs
++@@ -1274,6 +1274,10 @@ pub fn parse_sysconfigdata(sysconfigdata_path: impl AsRef<Path>) -> Result<Sysco
++     })?;
++     script += r#"
++ for key, val in build_time_vars.items():
+++    # (ana)conda(-forge) built Pythons are statically linked but ship the shared library with them.
+++    # We detect them based on the magic prefix directory they have encoded in their builds.
+++    if key == "Py_ENABLE_SHARED" and "_h_env_placehold" in build_time_vars.get("prefix"):
+++        val = 1
++     print(key, val)
++ "#;
++ 
+diff --git a/0001-Apply-upstream-cross-compilation-patch.patch b/0001-Apply-upstream-cross-compilation-patch.patch
+new file mode 100644
+index 0000000..aa2360b
+--- /dev/null
++++ b/0001-Apply-upstream-cross-compilation-patch.patch
+@@ -0,0 +1,49 @@
++From 36152431589535ca820964e15774783bb012b5c8 Mon Sep 17 00:00:00 2001
++From: "Uwe L. Korn" <uwelk@xhochy.com>
++Date: Wed, 2 Apr 2025 21:14:43 +0200
++Subject: [PATCH] Apply upstream cross-compilation patch
++
++---
++ ...nda-workaround-for-detecting-shared-buil.patch | 15 +++++++++++++++
++ Cargo.toml                                        |  9 +++++++++
++ 2 files changed, 24 insertions(+)
++ create mode 100644 0001-Apply-the-conda-workaround-for-detecting-shared-buil.patch
++
++diff --git a/0001-Apply-the-conda-workaround-for-detecting-shared-buil.patch b/0001-Apply-the-conda-workaround-for-detecting-shared-buil.patch
++new file mode 100644
++index 0000000..d10bf83
++--- /dev/null
+++++ b/0001-Apply-the-conda-workaround-for-detecting-shared-buil.patch
++@@ -0,0 +1,15 @@
+++diff --git a/src/impl_.rs b/src/impl_.rs
+++index 3b5be1c..e334fe5 100644
+++--- a/src/impl_.rs
++++++ b/src/impl_.rs
+++@@ -1188,6 +1188,10 @@ pub fn parse_sysconfigdata(sysconfigdata_path: impl AsRef<Path>) -> Result<Sysco
+++     })?;
+++     script += r#"
+++ for key, val in build_time_vars.items():
++++    # (ana)conda(-forge) built Pythons are statically linked but ship the shared library with them.
++++    # We detect them based on the magic prefix directory they have encoded in their builds.
++++    if key == "Py_ENABLE_SHARED" and "_h_env_placehold" in build_time_vars.get("prefix"):
++++        val = 1
+++     print(key, val)
+++ "#;
+++ 
++diff --git a/Cargo.toml b/Cargo.toml
++index 970f9ae..02a3b07 100644
++--- a/Cargo.toml
+++++ b/Cargo.toml
++@@ -31,3 +31,12 @@ criterion = "0.5"
++ serde = { version = "1", features = ["derive"]  }
++ serde_json = { version = "1" }
++ sqlglotrs = { path = "." , features = ["profiling"] }
+++
+++[package.metadata.patch.pyo3-build-config]
+++version = "0.22.6"
+++patches = [
+++    { path = "0001-Apply-the-conda-workaround-for-detecting-shared-buil.patch", source = "GithubPrDiff" }
+++]
+++
+++[patch.crates-io]
+++pyo3-build-config = { path = "./target/patch/pyo3-build-config-0.22.6" }
+diff --git a/Cargo.toml b/Cargo.toml
+index 1387ce7..70322c6 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -44,3 +44,12 @@ fs_extra = "1.3"
+ [profile.release]
+ codegen-units = 1
+ lto = "fat"
++
++[package.metadata.patch.pyo3-build-config]
++version = "0.23.3"
++patches = [
++    { path = "0001-Apply-the-conda-workaround-for-detecting-shared-buil.patch", source = "GithubPrDiff" }
++]
++
++[patch.crates-io]
++pyo3-build-config = { path = "./target/patch/pyo3-build-config-0.23.3" }

@@ -8,6 +8,8 @@ package:
 source:
   url: https://github.com/datavzrd/datavzrd/archive/refs/tags/v{{ version }}.tar.gz
   sha256: d0b4d95a49af42d4df9c46aa254d17e1313505db2323c47a9f7065e633f88da0
+  patches:
+    - 0001-Apply-upstream-cross-compilation-patch.patch  # [build_platform != target_platform]
 
 build:
   number: 1
@@ -20,6 +22,8 @@ requirements:
     - {{ stdlib("c") }}
     - python                              # [build_platform != target_platform]
     - cross-python_{{ target_platform }}  # [build_platform != target_platform]
+    - cargo-bundle-licenses
+    - cargo-patch
     - nodejs
     - pnpm
     - pkg-config
@@ -38,7 +42,9 @@ about:
   home: https://github.com/datavzrd/datavzrd
   license: MIT
   license_family: MIT
-  license_file: LICENSE
+  license_file:
+    - LICENSE
+    - THIRDPARTY.yml
   summary: A tool to create visual interactive standalone HTML reports from collections of CSV/TSV tables
   description: |
     A tool to create visual and interactive standalone HTML reports from 
