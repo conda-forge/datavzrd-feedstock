@@ -1,5 +1,7 @@
 #!/bin/bash -eu
 
+export RUSTFLAGS="$CARGO_BUILD_RUSTFLAGS"
+
 if [[ "${build_platform}" != "${target_platform}" ]]; then
   cargo patch
 fi
