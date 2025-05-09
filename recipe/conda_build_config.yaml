@@ -1,2 +1,4 @@
 c_stdlib_version:        
   - '10.13'  # [osx and x86]
+channel_sources:
+  conda-forge/label/cargo-patch-dev,conda-forge
