@@ -1,6 +1,8 @@
-#!/bin/bash -eu
+#!/bin/bash
 
-export RUSTFLAGS="$CARGO_BUILD_RUSTFLAGS"
+set -exuo pipefail
+
+export RUSTFLAGS="$CARGO_BUILD_RUSTFLAGS -L${PREFIX}/lib"
 
 if [[ "${build_platform}" != "${target_platform}" ]]; then
   cargo patch
