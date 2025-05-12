@@ -1,5 +1,5 @@
 {% set name = "datavzrd" %}
-{% set version = "2.56.1" %}
+{% set version = "2.57.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://github.com/datavzrd/datavzrd/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: d0b4d95a49af42d4df9c46aa254d17e1313505db2323c47a9f7065e633f88da0
+  sha256: c7ed71956e5b033df7a8607d3647d755a7b43c75a8e087a551bf6201f01fccc0
   patches:
     - 0001-Apply-upstream-cross-compilation-patch.patch  # [build_platform != target_platform]
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win or py<310]
 
 requirements:
