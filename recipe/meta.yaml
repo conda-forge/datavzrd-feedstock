@@ -8,8 +8,6 @@ package:
 source:
   url: https://github.com/datavzrd/datavzrd/archive/refs/tags/v{{ version }}.tar.gz
   sha256: de380822ab1d3e0b2f2d45199069be588e543336aa96d7a42e2950ff623d9b37
-  patches:
-    - 0001-Apply-upstream-cross-compilation-patch.patch  # [build_platform != target_platform]
 
 build:
   number: 0
@@ -23,7 +21,6 @@ requirements:
     - python                              # [build_platform != target_platform]
     - cross-python_{{ target_platform }}  # [build_platform != target_platform]
     - cargo-bundle-licenses
-    - cargo-patch
     - nodejs
     - pnpm
     - pkg-config
