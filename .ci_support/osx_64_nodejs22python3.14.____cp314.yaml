@@ -11,7 +11,7 @@ c_stdlib:
 c_stdlib_version:
 - '10.13'
 channel_sources:
-- conda-forge,conda-forge/label/python_rc
+- conda-forge/label/cargo-patch-dev,conda-forge
 channel_targets:
 - conda-forge main
 macos_machine:
@@ -19,7 +19,7 @@ macos_machine:
 nodejs:
 - '22'
 openssl:
-- '3'
+- '3.5'
 pin_run_as_build:
   python:
     min_pin: x.x
@@ -30,6 +30,3 @@ rust_compiler:
 - rust
 target_platform:
 - osx-64
-zip_keys:
-- - python
-  - channel_sources
