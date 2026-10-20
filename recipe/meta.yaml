@@ -27,8 +27,10 @@ requirements:
   host:
     - openssl
     - python
+    - libpython
   run:
     - python
+    - libpython
     - yte
 
 test:
