@@ -10,7 +10,7 @@ source:
   sha256: e5f95454323242dea6af339e376ec278f64f650f9b2ba2df81febfcc45df92a9
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win or py<310]
 
 requirements:
@@ -27,8 +27,10 @@ requirements:
   host:
     - openssl
     - python
+    - libpython
   run:
     - python
+    - libpython
     - yte
 
 test:
